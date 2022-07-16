@@ -1,0 +1,6 @@
+{
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "editor.fontSize":24,
+    "terminal.integrated.fontSize": 20,
+    "livePreview.defaultPreviewPath": "/.vscode/pagnation.html"
+}
