@@ -61,6 +61,15 @@ if (flashDataRegister) {
     });
 }
 
+const flashDataReport = $('.flash-data-report').data('flashdata');
+if (flashDataReport) {
+    Swal.fire({
+        title : 'Data Daily Report',
+        text  : 'New Report Has Been ' + flashDataReport,
+        icon  : 'success'
+    });
+}
+
 // confirm
 $('.tombol-hapus-menu').on('click', function(e) {
   e.preventDefault();
