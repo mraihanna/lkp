@@ -62,4 +62,52 @@ class Employee_model extends CI_Model
     $this->db->where('id', $id);
     $this->db->delete('user_jabatan');
   }
+
+  public function insertEmployee()
+  {
+    $nip            = $this->input->post('nip');
+    $name           = $this->input->post('name');
+    $email          = $this->input->post('email');
+    $image          = 'default.png';
+    $pass           = password_hash(123, PASSWORD_DEFAULT);
+    $role_id        = $this->input->post('role');
+    $unit_kerja_id  = $this->input->post('unit_kerja');
+    $jabatan_id     = $this->input->post('jabatan');
+    $atasan_id      = $this->input->post('atasan');
+
+    if (!$atasan_id) {
+      $atasan_id = 0;
+    }
+
+    $is_active      = 1;
+    $date_created   = time();
+
+    $data = [
+      'nip'           => $nip,
+      'name'          => $name,
+      'email'         => $email,
+      'image'         => $image,
+      'password'      => $pass,
+      'role_id'       => $role_id,
+      'unit_kerja_id' => $unit_kerja_id,
+      'jabatan_id'    => $jabatan_id,
+      'atasan_id'     => $atasan_id,
+      'is_active'     => $is_active,
+      'date_created'  => $date_created
+    ];
+
+    $this->db->insert('user', $data);
+  }
+
+  public function getEmployee()
+  {
+    $query = "SELECT user.*, user_jabatan.jabatan, user_unit_kerja.unit_kerja, user_role.role
+        FROM user JOIN user_jabatan
+        ON user.jabatan_id = user_jabatan.id
+        JOIN user_unit_kerja
+        ON user.unit_kerja_id = user_unit_kerja.id
+        JOIN user_role
+        ON user.role_id = user_role.id";
+    return $this->db->query($query)->result_array();
+  }
 }

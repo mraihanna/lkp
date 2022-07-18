@@ -23,7 +23,7 @@
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Menu Table</h4>
+            <h4 class="card-title">Sub Menu Table</h4>
             <p class="card-description">
               Be Carefull for Edit or Delete <code> table sub menu!</code>
             </p>

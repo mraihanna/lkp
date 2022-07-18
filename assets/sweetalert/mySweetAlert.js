@@ -44,6 +44,23 @@ if (flashDataJabatan) {
     });
 }
 
+const flashDataLogin = $('.flash-data-login').data('flashdata');
+if (flashDataLogin) {
+    Swal.fire({
+        title : 'Login' + flashDataLogin,
+        icon  : 'success'
+    });
+}
+
+const flashDataRegister = $('.flash-data-register').data('flashdata');
+if (flashDataRegister) {
+    Swal.fire({
+        title : 'Data Employee',
+        text  : 'New Employee Has Been ' + flashDataRegister,
+        icon  : 'success'
+    });
+}
+
 // confirm
 $('.tombol-hapus-menu').on('click', function(e) {
   e.preventDefault();
@@ -144,3 +161,20 @@ $('.tombol-hapus-jabatan').on('click', function(e) {
       }
   })
 });
+
+function submitForm(form){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Data Employee Will Be Added",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+    return false;
+}
