@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2022 at 11:01 PM
+-- Generation Time: Jul 18, 2022 at 05:52 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -24,6 +24,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `data_kegiatan`
+--
+
+CREATE TABLE `data_kegiatan` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nama_kegaitan` varchar(128) NOT NULL,
+  `tanggal_dimulai` date NOT NULL,
+  `jam_mulai` time NOT NULL,
+  `jam_selesai` time NOT NULL,
+  `jumlah_satuan` int(11) NOT NULL,
+  `satuan_kerja_id` int(11) NOT NULL,
+  `tempat_kegiatan` varchar(128) NOT NULL,
+  `keterangan` text NOT NULL,
+  `dok_pendukung` varchar(255) NOT NULL,
+  `verifikator_id` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_satuan_kerja`
+--
+
+CREATE TABLE `data_satuan_kerja` (
+  `id` int(11) NOT NULL,
+  `satuan_kerja` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -35,6 +67,9 @@ CREATE TABLE `user` (
   `image` varchar(128) NOT NULL,
   `password` varchar(256) NOT NULL,
   `role_id` int(1) NOT NULL,
+  `unit_kerja_id` int(11) NOT NULL,
+  `jabatan_id` int(11) NOT NULL,
+  `atasan_id` int(11) NOT NULL,
   `is_active` int(1) NOT NULL,
   `date_created` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -43,10 +78,14 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `nip`, `name`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(1, 1193020, 'Muhammad Raihan Nur Azmii', '1193020@std.poltekpos.ac.id', 'icon2.png', '$2y$10$hQyDCTGy5MNmDarYIgkMJ.tr9OufIYPtKoDiLhN1A8xmTkKDW2dYG', 1, 1, 1642817134),
-(2, 1193030, 'Dadang Nur Zaman', 'dadang@gmail.com', '733611.jpg', '$2y$10$Ky9Ufqpd4QXMNYoTnnGk4eptBMee0gZjWG6HIfj4.iyTvPoaqUHMq', 4, 1, 1642817134),
-(3, 1193040, 'Didik Hidayat Saputra', 'didik@gmail.com', 'default.png', '$2y$10$Ky9Ufqpd4QXMNYoTnnGk4eptBMee0gZjWG6HIfj4.iyTvPoaqUHMq', 3, 1, 1642817134);
+INSERT INTO `user` (`id`, `nip`, `name`, `email`, `image`, `password`, `role_id`, `unit_kerja_id`, `jabatan_id`, `atasan_id`, `is_active`, `date_created`) VALUES
+(1, 1193020, 'Muhammad Raihan Nur Azmii', '1193020@std.poltekpos.ac.id', 'icon2.png', '$2y$10$hQyDCTGy5MNmDarYIgkMJ.tr9OufIYPtKoDiLhN1A8xmTkKDW2dYG', 1, 0, 0, 0, 1, 1642817134),
+(2, 1193030, 'Dadang Nur Zaman', 'dadang@gmail.com', '733611.jpg', '$2y$10$Ky9Ufqpd4QXMNYoTnnGk4eptBMee0gZjWG6HIfj4.iyTvPoaqUHMq', 2, 1, 1, 0, 1, 1642817134),
+(3, 1193040, 'Didik Hidayat Saputra', 'didik@gmail.com', 'default.png', '$2y$10$Ky9Ufqpd4QXMNYoTnnGk4eptBMee0gZjWG6HIfj4.iyTvPoaqUHMq', 3, 1, 2, 2, 1, 1642817134),
+(4, 1192020, 'Iphone Andoroid Linux', 'mraihanna.18@gmail.com', 'default.png', '$2y$10$cz2myJaZ1hL5kXSoa0D7JOSNde81E.RNlmrtDmBaWwXdQ1n8rY5CC', 3, 1, 2, 2, 1, 1658110985),
+(5, 119310239, 'dadanggggg', 'dadangasd@gmail.com', 'default.png', '$2y$10$/996tzTz448xX6xGqFKktOGYLkjvcMDUpk3befD07Fn2ixAZlOohG', 2, 1, 1, 0, 1, 1658111784),
+(6, 2193020, 'Azumi Tamvan', 'azumi@gmail.com', 'default.png', '$2y$10$WNwpThOFcxm0cn9Mwelh0.ONA2KxzEoKFATEkiDoLXRUtdHiFPRh6', 2, 3, 6, 0, 1, 1658111871),
+(7, 123123, 'satu dua tiga', 'a@gmail.com', 'default.png', '$2y$10$KPTv/QCFIOc.BvdCkYOf9eTzaa8OEB8jn40ktVhpHVpukZl.xqxiO', 3, 3, 7, 6, 1, 1658112028);
 
 -- --------------------------------------------------------
 
@@ -66,17 +105,16 @@ CREATE TABLE `user_access_menu` (
 
 INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 2),
-(2, 4, 1),
-(3, 4, 2),
-(4, 3, 1),
-(6, 3, 3),
+(2, 3, 1),
+(3, 3, 2),
+(4, 2, 1),
+(6, 2, 3),
 (7, 1, 4),
 (8, 1, 9),
-(9, 4, 9),
-(10, 3, 9),
+(9, 3, 9),
+(10, 2, 9),
 (11, 1, 10),
-(14, 4, 3),
-(15, 3, 2),
+(15, 2, 2),
 (17, 1, 17);
 
 -- --------------------------------------------------------
@@ -96,7 +134,9 @@ CREATE TABLE `user_jabatan` (
 
 INSERT INTO `user_jabatan` (`id`, `jabatan`) VALUES
 (1, 'Supervisor Operator'),
-(2, 'Operator');
+(2, 'Operator'),
+(6, 'Supervisor Teknisi'),
+(7, 'Teknisi');
 
 -- --------------------------------------------------------
 
@@ -142,8 +182,8 @@ CREATE TABLE `user_role` (
 
 INSERT INTO `user_role` (`id`, `role`) VALUES
 (1, 'Admin'),
-(3, 'Atasan'),
-(4, 'Pegawai');
+(2, 'Atasan'),
+(3, 'Pegawai');
 
 -- --------------------------------------------------------
 
@@ -175,8 +215,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `urutan`, `is_acti
 (9, 4, 'Sub Menu', 'menu/submenu', 2, 1),
 (10, 9, 'Home', 'dashboard', 1, 1),
 (12, 10, 'Access Role', 'role', 1, 1),
-(13, 17, 'Register Employee', 'role/register', 3, 1),
-(23, 17, 'Data Employee', 'errors/maintenance', 4, 1),
+(13, 17, 'Register Employee', 'employee/register', 3, 1),
+(23, 17, 'Data Employee', 'employee/dataemployee', 4, 1),
 (24, 17, 'Data Jabatan', 'employee/jabatan', 2, 1),
 (25, 17, 'Unit Kerja', 'employee/unitkerja', 1, 1);
 
@@ -197,11 +237,23 @@ CREATE TABLE `user_unit_kerja` (
 
 INSERT INTO `user_unit_kerja` (`id`, `unit_kerja`) VALUES
 (1, 'Operator'),
-(2, 'Teknisi');
+(3, 'Teknisi');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `data_kegiatan`
+--
+ALTER TABLE `data_kegiatan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `data_satuan_kerja`
+--
+ALTER TABLE `data_satuan_kerja`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -250,10 +302,22 @@ ALTER TABLE `user_unit_kerja`
 --
 
 --
+-- AUTO_INCREMENT for table `data_kegiatan`
+--
+ALTER TABLE `data_kegiatan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `data_satuan_kerja`
+--
+ALTER TABLE `data_satuan_kerja`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
@@ -265,7 +329,7 @@ ALTER TABLE `user_access_menu`
 -- AUTO_INCREMENT for table `user_jabatan`
 --
 ALTER TABLE `user_jabatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_menu`

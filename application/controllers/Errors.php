@@ -39,4 +39,26 @@ class Errors extends CI_Controller
     $this->load->view('error/401');
     $this->load->view('templates/error_footer');
   }
+
+  public function nyoba()
+  {
+    echo $this->input->post('kegiatan');
+    echo '<br>';
+    echo $this->input->post('tanggal');
+    echo '<br>';
+    echo $this->input->post('jam_mulai');
+    echo '<br>';
+    echo $this->input->post('jam_selesai');
+    echo '<br>';
+    echo $this->input->post('jumlah');
+    echo '<br>';
+    echo $this->input->post('satuan_kerja');
+    echo '<br>';
+    echo $this->input->post('tempat');
+    echo '<br>';
+    echo $this->input->post('keterangan');
+    echo '<br>';
+
+    var_dump($_FILES);
+  }
 }
