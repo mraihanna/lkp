@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2022 at 05:52 AM
+-- Generation Time: Jul 20, 2022 at 05:17 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -30,16 +30,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `data_kegiatan` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `nama_kegaitan` varchar(128) NOT NULL,
+  `verifikator_id` int(1) NOT NULL,
+  `satuan_kerja_id` int(11) NOT NULL,
+  `target_id` int(11) NOT NULL,
+  `nama_kegiatan` varchar(128) NOT NULL,
   `tanggal_dimulai` date NOT NULL,
   `jam_mulai` time NOT NULL,
   `jam_selesai` time NOT NULL,
   `jumlah_satuan` int(11) NOT NULL,
-  `satuan_kerja_id` int(11) NOT NULL,
   `tempat_kegiatan` varchar(128) NOT NULL,
   `keterangan` text NOT NULL,
   `dok_pendukung` varchar(255) NOT NULL,
-  `verifikator_id` int(1) NOT NULL
+  `is_verify` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -52,6 +54,57 @@ CREATE TABLE `data_satuan_kerja` (
   `id` int(11) NOT NULL,
   `satuan_kerja` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_satuan_kerja`
+--
+
+INSERT INTO `data_satuan_kerja` (`id`, `satuan_kerja`) VALUES
+(1, 'Berkas'),
+(2, 'Buah'),
+(3, 'Buku'),
+(4, 'Kelompok'),
+(5, 'Orang'),
+(6, 'Paket'),
+(7, 'Set'),
+(8, 'Surat'),
+(9, 'Catatan'),
+(10, 'Box');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_target`
+--
+
+CREATE TABLE `data_target` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `detail_kegiatan` varchar(128) NOT NULL,
+  `dateline` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `perusahaan`
+--
+
+CREATE TABLE `perusahaan` (
+  `id` int(11) NOT NULL,
+  `perusahaan` varchar(255) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `tlp` varchar(30) NOT NULL,
+  `owner_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `perusahaan`
+--
+
+INSERT INTO `perusahaan` (`id`, `perusahaan`, `logo`, `alamat`, `tlp`, `owner_id`) VALUES
+(1, 'PT Siamang Tunggals', '2019-04-22-ts3_thumbs-4ab.png', 'Jl. Angin Ribut No. 9', '089504824037', 1);
 
 -- --------------------------------------------------------
 
@@ -85,7 +138,8 @@ INSERT INTO `user` (`id`, `nip`, `name`, `email`, `image`, `password`, `role_id`
 (4, 1192020, 'Iphone Andoroid Linux', 'mraihanna.18@gmail.com', 'default.png', '$2y$10$cz2myJaZ1hL5kXSoa0D7JOSNde81E.RNlmrtDmBaWwXdQ1n8rY5CC', 3, 1, 2, 2, 1, 1658110985),
 (5, 119310239, 'dadanggggg', 'dadangasd@gmail.com', 'default.png', '$2y$10$/996tzTz448xX6xGqFKktOGYLkjvcMDUpk3befD07Fn2ixAZlOohG', 2, 1, 1, 0, 1, 1658111784),
 (6, 2193020, 'Azumi Tamvan', 'azumi@gmail.com', 'default.png', '$2y$10$WNwpThOFcxm0cn9Mwelh0.ONA2KxzEoKFATEkiDoLXRUtdHiFPRh6', 2, 3, 6, 0, 1, 1658111871),
-(7, 123123, 'satu dua tiga', 'a@gmail.com', 'default.png', '$2y$10$KPTv/QCFIOc.BvdCkYOf9eTzaa8OEB8jn40ktVhpHVpukZl.xqxiO', 3, 3, 7, 6, 1, 1658112028);
+(7, 123123, 'satu dua tiga', 'a@gmail.com', 'default.png', '$2y$10$KPTv/QCFIOc.BvdCkYOf9eTzaa8OEB8jn40ktVhpHVpukZl.xqxiO', 3, 3, 7, 6, 1, 1658112028),
+(8, 123, 'Azmii', 'mraihanna1278@gmail.com', 'default.png', '$2y$10$rv/8ASY7l.JhA0oa05.h3.OmRPBYiZ7KqHSim3WxOABjDjlFIUpn6', 3, 1, 2, 5, 1, 1658132406);
 
 -- --------------------------------------------------------
 
@@ -115,7 +169,22 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (10, 2, 9),
 (11, 1, 10),
 (15, 2, 2),
-(17, 1, 17);
+(17, 1, 17),
+(18, 1, 19),
+(19, 1, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_detail`
+--
+
+CREATE TABLE `user_detail` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `alamat` varchar(128) NOT NULL,
+  `kinerja` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -163,7 +232,9 @@ INSERT INTO `user_menu` (`id`, `menu`, `icon`, `urutan`, `is_active`) VALUES
 (4, 'Menu', 'mdi mdi-menu', 3, 1),
 (9, 'Dashboard', 'icon-grid', 1, 1),
 (10, 'Role', 'mdi mdi-account-convert', 5, 1),
-(17, 'Employee', 'mdi mdi-account-card-details', 11, 1);
+(17, 'Employee', 'mdi mdi-account-card-details', 11, 1),
+(19, 'Activity', 'mdi mdi-database', 12, 1),
+(20, 'Company', 'mdi mdi-information', 13, 1);
 
 -- --------------------------------------------------------
 
@@ -206,7 +277,7 @@ CREATE TABLE `user_sub_menu` (
 
 INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `urutan`, `is_active`) VALUES
 (1, 1, 'Daily Report', 'report', 1, 1),
-(2, 1, 'History Report', 'errors/maintenance', 2, 1),
+(2, 1, 'History Report', 'report/history', 2, 1),
 (4, 2, 'My Profile', 'user', 1, 1),
 (5, 2, 'Edit Profile', 'user/edit', 2, 1),
 (6, 2, 'Change Password', 'user/changepassword', 3, 1),
@@ -218,7 +289,9 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `urutan`, `is_acti
 (13, 17, 'Register Employee', 'employee/register', 3, 1),
 (23, 17, 'Data Employee', 'employee/dataemployee', 4, 1),
 (24, 17, 'Data Jabatan', 'employee/jabatan', 2, 1),
-(25, 17, 'Unit Kerja', 'employee/unitkerja', 1, 1);
+(25, 17, 'Unit Kerja', 'employee/unitkerja', 1, 1),
+(26, 19, 'Satuan Kerja', 'activity/satuanKerja', 1, 1),
+(27, 20, 'Settings', 'company/settings', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -256,6 +329,18 @@ ALTER TABLE `data_satuan_kerja`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `data_target`
+--
+ALTER TABLE `data_target`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `perusahaan`
+--
+ALTER TABLE `perusahaan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -265,6 +350,12 @@ ALTER TABLE `user`
 -- Indexes for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_detail`
+--
+ALTER TABLE `user_detail`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -305,25 +396,43 @@ ALTER TABLE `user_unit_kerja`
 -- AUTO_INCREMENT for table `data_kegiatan`
 --
 ALTER TABLE `data_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `data_satuan_kerja`
 --
 ALTER TABLE `data_satuan_kerja`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `data_target`
+--
+ALTER TABLE `data_target`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `perusahaan`
+--
+ALTER TABLE `perusahaan`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `user_detail`
+--
+ALTER TABLE `user_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_jabatan`
@@ -335,7 +444,7 @@ ALTER TABLE `user_jabatan`
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -347,7 +456,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `user_unit_kerja`

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+$company = $this->db->get('perusahaan')->row_array(); ?>
 
 <head>
   <!-- Required meta tags -->
@@ -18,7 +20,8 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="<?= base_url('assets/'); ?>css/vertical-layout-light/style.css">
   <!-- endinject -->
-  <!-- <link rel="shortcut icon" href="<?= base_url('assets/'); ?>images/favicon.png" /> -->
+  <link rel="shortcut icon" href="<?= base_url('assets/images/logo/') . $company['logo']; ?>" />
+
 </head>
 
 <body>

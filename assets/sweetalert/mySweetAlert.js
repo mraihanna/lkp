@@ -58,7 +58,7 @@ const flashDataLogout = $('.flash-data-logout').data('flashdata');
 if (flashDataLogout) {
     Swal.fire({
         icon: 'success',
-        title: 'Logout' + flashDataLogout,
+        title: 'Logout success',
         showConfirmButton: false,
         timer: 1500
     })
