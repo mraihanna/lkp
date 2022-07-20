@@ -3,6 +3,8 @@
     <div class="row">
       <div class="col-12 mb-3">
         <h2><?= $title; ?></h2>
+        <div class="flash-data-perusahaan" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+        <div class="flash-data-gagal" data-flashdata="<?= $this->session->flashdata('message-error'); ?>"></div>
       </div>
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">

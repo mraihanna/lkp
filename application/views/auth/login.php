@@ -7,13 +7,11 @@
             <div class="brand-logo">
               <!-- <img class="mb-2" src="<?= base_url('assets/'); ?>images/logo.svg" alt="logo"> -->
               <h3>Laporan Kegiatan Pegawai</h3>
+              <div class="flash-data-logout" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
             </div>
             <h4>Hello! let's get started</h4>
             <h6 class="font-weight-light">Sign in to continue.</h6>
             <form class="pt-3" method="POST" action="<?= base_url('auth'); ?>">
-              <div>
-                <?= $this->session->flashdata('message'); ?>
-              </div>
               <div class="form-group">
                 <input type="text" name="nip" class="form-control form-control-lg" id="nip" placeholder="NIP" value="<?php echo ($nip == "") ? set_value('nip') : $nip; ?>">
                 <?= form_error('nip', '<small class="text-danger">', '</small>'); ?>

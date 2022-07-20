@@ -75,7 +75,7 @@ class Auth extends CI_Controller
     $this->session->unset_userdata('nip');
     $this->session->unset_userdata('role_id');
 
-    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been log out!</div>');
+    $this->session->set_flashdata('message', 'success');
     redirect('auth');
   }
 }

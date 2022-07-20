@@ -5,9 +5,10 @@ class Company_model extends CI_Model
 {
   public function updateCompany($logo)
   {
-    $perusahaan  = $this->input->post('perusahaan');
-    $alamat   = $this->input->post('alamat');
-    $tlp      = $this->input->post('tlp');
+    $perusahaan   = $this->input->post('perusahaan');
+    $alamat       = $this->input->post('alamat');
+    $tlp          = $this->input->post('tlp');
+    $image        = $logo;
 
     // jika ada gambar
     $uploadImage = $_FILES['logo']['name'];
@@ -23,21 +24,19 @@ class Company_model extends CI_Model
         $old_image = $logo;
         unlink(FCPATH . 'assets/images/logo/' . $old_image);
 
-        $new_image = $this->upload->data('file_name'); //berisi nama file baru
-        $data['logo'] = $new_image;
+        $image = $this->upload->data('file_name');
       } else { //kalogagal
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+        $this->session->set_flashdata('message-error', $this->upload->display_errors());
         redirect('company/settings');
       }
     }
     $data = [
-      'perusahaan' => $perusahaan,
-      'alamat'    => $alamat,
-      'tlp' => $tlp,
+      'perusahaan'  => $perusahaan,
+      'alamat'      => $alamat,
+      'tlp'         => $tlp,
+      'logo'        => $image
     ];
-    var_dump($data['logo']);
-    die;
     $this->db->where('id', 1);
-    $this->db->update('user', $data);
+    $this->db->update('perusahaan', $data);
   }
 }

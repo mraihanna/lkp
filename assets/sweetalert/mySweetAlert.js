@@ -47,9 +47,21 @@ if (flashDataJabatan) {
 const flashDataLogin = $('.flash-data-login').data('flashdata');
 if (flashDataLogin) {
     Swal.fire({
-        title : 'Login' + flashDataLogin,
-        icon  : 'success'
-    });
+        icon: 'success',
+        title: 'Login Success',
+        showConfirmButton: false,
+        timer: 1500
+    })
+}
+
+const flashDataLogout = $('.flash-data-logout').data('flashdata');
+if (flashDataLogout) {
+    Swal.fire({
+        icon: 'success',
+        title: 'Logout' + flashDataLogout,
+        showConfirmButton: false,
+        timer: 1500
+    })
 }
 
 const flashDataRegister = $('.flash-data-register').data('flashdata');
@@ -69,12 +81,31 @@ if (flashDataReport) {
         icon  : 'success'
     });
 }
+
 const flashDataSatuanKerja = $('.flash-data-satuan-kerja').data('flashdata');
 if (flashDataSatuanKerja) {
     Swal.fire({
         title : 'Data Satuan kerja',
         text  : 'New Satuan Kerja Has Been ' + flashDataSatuanKerja,
         icon  : 'success'
+    });
+}
+
+const flashDataPerusahaan = $('.flash-data-perusahaan').data('flashdata');
+if (flashDataPerusahaan) {
+    Swal.fire({
+        title : 'Profil Perusahaan ',
+        text  : 'Profile Perusahan Has Been ' + flashDataPerusahaan,
+        icon  : 'success'
+    });
+}
+
+const flashDataGagal = $('.flash-data-gagal').data('flashdata');
+if (flashDataGagal) {
+    Swal.fire({
+        title : 'Gambar Gagal',
+        text  : flashDataGagal,
+        icon  : 'error'
     });
 }
 

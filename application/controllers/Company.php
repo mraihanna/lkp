@@ -32,7 +32,7 @@ class Company extends CI_Controller
       $this->load->view('templates/footer');
     } else {
       $this->company->updateCompany($data['company']['logo']);
-      $this->session->set_flashdata('message', 'Added!');
+      $this->session->set_flashdata('message', 'Changed!');
       redirect('company/settings');
     }
   }
