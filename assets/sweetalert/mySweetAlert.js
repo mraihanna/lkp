@@ -69,6 +69,14 @@ if (flashDataReport) {
         icon  : 'success'
     });
 }
+const flashDataSatuanKerja = $('.flash-data-satuan-kerja').data('flashdata');
+if (flashDataSatuanKerja) {
+    Swal.fire({
+        title : 'Data Satuan kerja',
+        text  : 'New Satuan Kerja Has Been ' + flashDataSatuanKerja,
+        icon  : 'success'
+    });
+}
 
 // confirm
 $('.tombol-hapus-menu').on('click', function(e) {
@@ -187,3 +195,23 @@ function submitForm(form){
     });
     return false;
 }
+
+$('.tombol-hapus-satuan-kerja').on('click', function(e) {
+    e.preventDefault();
+  
+    const href = $(this).attr('href')
+  
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Data Satuan Kerja Will Be Deleted",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.location.href = href;
+        }
+    })
+  });
