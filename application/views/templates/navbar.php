@@ -1,12 +1,15 @@
+<?php
+$company = $this->db->get('perusahaan')->row_array();
+?>
 <!-- partial:<?= base_url('assets/'); ?>partials/_navbar.html -->
 <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
     <!-- <a class="navbar-brand brand-logo mr-5" href="<?= base_url('assets/'); ?>index.html"><img src="<?= base_url('assets/'); ?>images/logo.svg" class="mr-2" alt="logo" /></a> -->
     <!-- <a class="navbar-brand brand-logo-mini" href="<?= base_url('assets/'); ?>index.html"><img src="<?= base_url('assets/'); ?>images/logo-mini.svg" alt="logo" /></a> -->
     <a class="navbar-brand brand-logo ml-2" href="<?= base_url('user'); ?>">
-      <h4>Laporan Kegiatan Pegawai</h4>
+      <h4><?= $company['perusahaan']; ?></h4>
     </a>
-    <a class="navbar-brand brand-logo-mini" href="<?= base_url('user'); ?>">LKP</a>
+    <a class="navbar-brand brand-logo-mini" href="<?= base_url('user'); ?>"><img src="<?= base_url('assets/images/logo/') . $company['logo']; ?>" class="" alt=""></a>
   </div>
   <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -14,11 +17,23 @@
     </button>
     <ul class="navbar-nav mr-lg-2">
       <li class="nav-item nav-search d-none d-lg-block">
-        <div class="input-group">
+        <?php if ($jabatan['id'] == 1) : ?>
+          <div class="badge badge-info"><?= $jabatan['role']; ?></div>
+        <?php elseif ($jabatan['id'] == 2) : ?>
+          <div class="badge badge-primary"><?= $jabatan['role']; ?></div>
+        <?php elseif ($jabatan['id'] == 3) : ?>
+          <div class="badge badge-success"><?= $jabatan['role']; ?></div>
+        <?php else : ?>
+          <div class="badge badge-warning"><?= $jabatan['role']; ?></div>
+        <?php endif; ?>
 
       </li>
     </ul>
     <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item">
+        <h4 class="text-primary">
+          <?= $user['name']; ?></h3>
+      </li>
       <li class="nav-item nav-profile dropdown">
         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
           <img src="<?= base_url('assets/images/avatar/') . $user['image']; ?>" alt="profile" />

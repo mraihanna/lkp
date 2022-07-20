@@ -1,3 +1,4 @@
+<?php $company = $this->db->get('perusahaan')->row_array(); ?>
 <div class="container-scroller">
   <div class="container-fluid page-body-wrapper full-page-wrapper">
     <div class="content-wrapper d-flex align-items-center auth px-0">
@@ -5,8 +6,10 @@
         <div class="col-lg-4 mx-auto">
           <div class="auth-form-light text-left py-5 px-4 px-sm-5">
             <div class="brand-logo">
-              <!-- <img class="mb-2" src="<?= base_url('assets/'); ?>images/logo.svg" alt="logo"> -->
-              <h3>Laporan Kegiatan Pegawai</h3>
+              <div class="row">
+                <img class="mb-3 w-25" src="<?= base_url('assets/images/logo/') . $company['logo']; ?>">
+                <h3 class="mt-2 ml-2 py-4"><?= $company['perusahaan']; ?></h3>
+              </div>
               <div class="flash-data-logout" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
             </div>
             <h4>Hello! let's get started</h4>

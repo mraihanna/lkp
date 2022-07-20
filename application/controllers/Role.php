@@ -17,6 +17,7 @@ class Role extends CI_Controller
     $data['title']    = 'Role';
     $data['user']     = $this->db->get_where('user', ['nip' => $this->session->userdata('nip')])->row_array();
     $data['role']     = $this->db->get('user_role')->result_array();
+    $data['jabatan']  = $this->db->get_where('user_role', ['id' => $this->session->userdata('role_id')])->row_array();
 
     $this->form_validation->set_rules('role', 'Role', 'required');
 
@@ -41,6 +42,7 @@ class Role extends CI_Controller
     $data['role']     = $this->db->get_where('user_role', ['id' => $roleId])->row_array();
     $this->db->where('id !=', 10);
     $data['menu']     = $this->db->get('user_menu')->result_array();
+    $data['jabatan']  = $this->db->get_where('user_role', ['id' => $this->session->userdata('role_id')])->row_array();
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates/navbar', $data);
@@ -76,6 +78,7 @@ class Role extends CI_Controller
     $data['title']    = 'Role';
     $data['user']     = $this->db->get_where('user', ['nip' => $this->session->userdata('nip')])->row_array();
     $data['role']     = $this->db->get('user_role')->result_array();
+    $data['jabatan']  = $this->db->get_where('user_role', ['id' => $this->session->userdata('role_id')])->row_array();
 
     $this->form_validation->set_rules('role', 'Role', 'required');
 

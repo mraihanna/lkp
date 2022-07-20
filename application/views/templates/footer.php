@@ -1,9 +1,10 @@
+  <?php $company = $this->db->get('perusahaan')->row_array(); ?>
   <!-- content-wrapper ends -->
   <!-- partial:<?= base_url('assets/'); ?>partials/_footer.html -->
   <footer class="footer">
     <div class="d-sm-flex justify-content-center justify-content-sm-between">
-      <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <?= date('Y'); ?>. LKP <a href="https://mraihanna.vercel.app/" target="_blank">mraihanna</a> from Poltekpos. All rights reserved.</span>
-      <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
+      <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <?= date('Y'); ?>. LKP <b> <?= $company['perusahaan']; ?></b>, address <?= $company['alamat']; ?>. All rights reserved.</span>
+      <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><i class="mdi mdi-cellphone"></i> Telp <?= $company['tlp']; ?> </span>
     </div>
   </footer>
   <!-- partial -->
