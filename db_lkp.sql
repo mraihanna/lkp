@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2022 at 05:17 AM
+-- Generation Time: Jul 21, 2022 at 02:48 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -104,7 +104,7 @@ CREATE TABLE `perusahaan` (
 --
 
 INSERT INTO `perusahaan` (`id`, `perusahaan`, `logo`, `alamat`, `tlp`, `owner_id`) VALUES
-(1, 'PT Siamang Tunggals', '2019-04-22-ts3_thumbs-4ab.png', 'Jl. Angin Ribut No. 9', '089504824037', 1);
+(1, 'PT Siamang Tunggal', '2019-04-22-ts3_thumbs-4ab.png', 'Jl. Angin Ribut No. 9', '089504824037', 1);
 
 -- --------------------------------------------------------
 
@@ -132,7 +132,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nip`, `name`, `email`, `image`, `password`, `role_id`, `unit_kerja_id`, `jabatan_id`, `atasan_id`, `is_active`, `date_created`) VALUES
-(1, 1193020, 'Muhammad Raihan Nur Azmii', '1193020@std.poltekpos.ac.id', 'icon2.png', '$2y$10$hQyDCTGy5MNmDarYIgkMJ.tr9OufIYPtKoDiLhN1A8xmTkKDW2dYG', 1, 0, 0, 0, 1, 1642817134),
+(1, 1193020, 'Muhammad Raihan Nur Azmii', '1193020@std.poltekpos.ac.id', 'icon2.png', '$2y$10$DT8ySYoF6/RbGxS6C1rVVuDgFwUi2u7PVneeR6rnJVOf5AqCIk.WO', 1, 0, 0, 0, 1, 1642817134),
 (2, 1193030, 'Dadang Nur Zaman', 'dadang@gmail.com', '733611.jpg', '$2y$10$Ky9Ufqpd4QXMNYoTnnGk4eptBMee0gZjWG6HIfj4.iyTvPoaqUHMq', 2, 1, 1, 0, 1, 1642817134),
 (3, 1193040, 'Didik Hidayat Saputra', 'didik@gmail.com', 'default.png', '$2y$10$Ky9Ufqpd4QXMNYoTnnGk4eptBMee0gZjWG6HIfj4.iyTvPoaqUHMq', 3, 1, 2, 2, 1, 1642817134),
 (4, 1192020, 'Iphone Andoroid Linux', 'mraihanna.18@gmail.com', 'default.png', '$2y$10$cz2myJaZ1hL5kXSoa0D7JOSNde81E.RNlmrtDmBaWwXdQ1n8rY5CC', 3, 1, 2, 2, 1, 1658110985),
@@ -161,8 +161,6 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 2),
 (2, 3, 1),
 (3, 3, 2),
-(4, 2, 1),
-(6, 2, 3),
 (7, 1, 4),
 (8, 1, 9),
 (9, 3, 9),
@@ -171,7 +169,10 @@ INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (15, 2, 2),
 (17, 1, 17),
 (18, 1, 19),
-(19, 1, 20);
+(19, 1, 20),
+(20, 2, 21),
+(21, 2, 3),
+(22, 2, 19);
 
 -- --------------------------------------------------------
 
@@ -227,14 +228,15 @@ CREATE TABLE `user_menu` (
 
 INSERT INTO `user_menu` (`id`, `menu`, `icon`, `urutan`, `is_active`) VALUES
 (1, 'Report', 'icon-paper', 8, 1),
-(2, 'User', 'icon-head', 10, 1),
-(3, 'Subordinate', 'mdi mdi-newspaper', 4, 1),
+(2, 'User', 'icon-head', 14, 1),
+(3, 'Subordinate', 'mdi mdi-newspaper', 10, 1),
 (4, 'Menu', 'mdi mdi-menu', 3, 1),
 (9, 'Dashboard', 'icon-grid', 1, 1),
 (10, 'Role', 'mdi mdi-account-convert', 5, 1),
 (17, 'Employee', 'mdi mdi-account-card-details', 11, 1),
 (19, 'Activity', 'mdi mdi-database', 12, 1),
-(20, 'Company', 'mdi mdi-information', 13, 1);
+(20, 'Company', 'mdi mdi-information', 13, 1),
+(21, 'Target', 'mdi mdi-playlist-plus', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -291,7 +293,8 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `urutan`, `is_acti
 (24, 17, 'Data Jabatan', 'employee/jabatan', 2, 1),
 (25, 17, 'Unit Kerja', 'employee/unitkerja', 1, 1),
 (26, 19, 'Satuan Kerja', 'activity/satuanKerja', 1, 1),
-(27, 20, 'Settings', 'company/settings', 1, 1);
+(27, 20, 'Settings', 'company/settings', 1, 1),
+(28, 21, 'Job List', 'target/list', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -426,7 +429,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_detail`
@@ -444,7 +447,7 @@ ALTER TABLE `user_jabatan`
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `user_role`
@@ -456,7 +459,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `user_unit_kerja`
