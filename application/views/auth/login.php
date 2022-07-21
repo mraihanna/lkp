@@ -11,6 +11,7 @@
                 <h3 class="mt-2 ml-2 py-4"><?= $company['perusahaan']; ?></h3>
               </div>
               <div class="flash-data-logout" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+              <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('message-error'); ?>"></div>
             </div>
             <h4>Hello! let's get started</h4>
             <h6 class="font-weight-light">Sign in to continue.</h6>

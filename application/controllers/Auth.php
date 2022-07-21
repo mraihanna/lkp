@@ -57,15 +57,15 @@ class Auth extends CI_Controller
             redirect('dashboard');
           }
         } else {
-          $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password</div>');
+          $this->session->set_flashdata('message-error', 'Wrong Password');
           redirect('auth/index/' . $nip);
         }
       } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This account is not active</div>');
+        $this->session->set_flashdata('message-error', 'This account is not active');
         redirect('auth/index/' . $nip);
       }
     } else {
-      $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">NIP is not registered</div>');
+      $this->session->set_flashdata('message-error', 'NIP is not registered');
       redirect('auth/index/' . $nip); //nih ini bener nih hahaay
     }
   }

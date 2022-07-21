@@ -109,6 +109,15 @@ if (flashDataGagal) {
     });
 }
 
+const flashDataError = $('.flash-data-error').data('flashdata');
+if (flashDataError) {
+    Swal.fire({
+        title : 'Login Failed',
+        text  : flashDataError,
+        icon  : 'error'
+    });
+}
+
 // confirm
 $('.tombol-hapus-menu').on('click', function(e) {
   e.preventDefault();
