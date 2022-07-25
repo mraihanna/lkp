@@ -83,6 +83,28 @@
     $(document).ready(function() {
       $('#table').DataTable();
     });
+
+    $(document).ready(function() {
+      $('#search').keyup(function() {
+        search_table($(this).val());
+      });
+
+      function search_table(value) {
+        $('#univ div.col-lg-3').each(function() {
+          var found = 'false';
+          $(this).each(function() {
+            if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+              found = 'true';
+            }
+          });
+          if (found == 'true') {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      }
+    });
   </script>
   <!-- endinject -->
   <!-- Custom js for this page-->
