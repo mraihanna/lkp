@@ -4,11 +4,14 @@
       <div class="col-12 mb-3">
         <h2><?= $title; ?></h2>
 
-        <?= form_error('role', '<div class="alert alert-danger alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        ', '</div>'); ?>
+        <?php if (validation_errors()) : ?>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <?= validation_errors(); ?>
+          </div>
+        <?php endif; ?>
 
-        <div class="flash-data-role" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+        <div class="flash-data-target-user" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
 
 
         <a href="<?= base_url('target/list'); ?>" class="btn btn-info my-2">
@@ -23,7 +26,7 @@
               Be Carefull Edit or Delete <code> table role!</code>
             </p>
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-hover" id="table">
                 <thead>
                   <tr>
                     <th width="10px">No</th>
@@ -35,15 +38,15 @@
                 </thead>
                 <tbody>
                   <?php $no = 1;
-                  foreach ($role as $r) : ?>
+                  foreach ($targetUser as $t) : ?>
                     <tr>
                       <td><?= $no++; ?></td>
-                      <td> <?= $r['role']; ?> </td>
-                      <td> <?= $r['role']; ?> </td>
-                      <td> <?= $r['role']; ?> </td>
+                      <td> <?= $t['detail_kegiatan']; ?> </td>
+                      <td> <?= $t['start_date']; ?> </td>
+                      <td> <?= $t['end_date']; ?> </td>
                       <td>
-                        <a href="<?= base_url('target/editTargetUser/') . $r['id']; ?>" class="badge badge-warning" title="EDIT" data-toggle="modal" data-target="#editTargetModal<?= $r['id']; ?>"><i class="mdi mdi-tooltip-edit" title="EDIT"></i></a>
-                        <a href="<?= base_url('role/deleteRole/') . $r['id']; ?>" class="badge badge-danger tombol-hapus-role" title="DELETE"><i class="mdi mdi-delete" title="DELETE"></i></a>
+                        <a href="<?= base_url('target/editTargetUser/') . $t['id']; ?>" class="badge badge-warning" title="EDIT" data-toggle="modal" data-target="#editTargetModal<?= $t['id']; ?>"><i class="mdi mdi-tooltip-edit" title="EDIT"></i></a>
+                        <a href="<?= base_url('target/deleteTargetUser/') . $id . '/' . $t['id']; ?>" class="badge badge-danger tombol-hapus-target-user" title="DELETE"><i class="mdi mdi-delete" title="DELETE"></i></a>
                       </td>
                     </tr>
                   <?php endforeach; ?>
@@ -68,7 +71,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url('target/addTargetUser'); ?>" method="POST">
+        <form action="<?= base_url('target/addTargetUser/') . $id; ?>" method="POST">
           <div class="modal-body">
             <div class="form-group">
               <label for="detail_kegiatan">Detail Kegaitan</label>
@@ -93,31 +96,30 @@
   </div>
 
   <!-- Modal Edit -->
-  <?php foreach ($role as $r) : ?>
-    <div class="modal fade" id="editTargetModal<?= $r['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editTargetModalLabel" aria-hidden="true">
+  <?php foreach ($targetUser as $t) : ?>
+    <div class="modal fade" id="editTargetModal<?= $t['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editTargetModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editTargetModalLabel">Edit New Role</h5>
+            <h5 class="modal-title" id="editTargetModalLabel">Edit Target</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="<?= base_url('role/editrole/') . $r['id']; ?>" method="POST">
+          <form action="<?= base_url('target/editTargetUser/') . '/' . $id . '/' . $t['id']; ?>" method="POST">
+
             <div class="modal-body">
-              <div class="modal-body">
-                <div class="form-group">
-                  <label for="detail_kegiatan">Detail Kegaitan</label>
-                  <input type="text" name="detail_kegiatan" class="form-control" id="detail_kegiatan" placeholder="Detail Kegaitan">
-                </div>
-                <div class="form-group">
-                  <label for="start_date">Start Date</label>
-                  <input type="date" name="start_date" class="form-control" id="start_date" placeholder="Start Date">
-                </div>
-                <div class="form-group">
-                  <label for="end_date">End Date</label>
-                  <input type="date" name="end_date" class="form-control" id="end_date" placeholder="End Date">
-                </div>
+              <div class="form-group">
+                <label for="detail_kegiatan">Detail Kegaitan</label>
+                <input type="text" name="detail_kegiatan" class="form-control" id="detail_kegiatan" value="<?= $t['detail_kegiatan']; ?>" placeholder="Detail Kegaitan">
+              </div>
+              <div class="form-group">
+                <label for="start_date">Start Date</label>
+                <input type="date" name="start_date" class="form-control" id="start_date" value="<?= $t['start_date']; ?>" placeholder="Start Date">
+              </div>
+              <div class="form-group">
+                <label for="end_date">End Date</label>
+                <input type="date" name="end_date" class="form-control" id="end_date" value="<?= $t['end_date']; ?>" placeholder="End Date">
               </div>
             </div>
             <div class="modal-footer">

@@ -100,6 +100,24 @@ if (flashDataPerusahaan) {
     });
 }
 
+const flashDataTargetUser = $('.flash-data-target-user').data('flashdata');
+if (flashDataTargetUser) {
+    Swal.fire({
+        title : 'Data Target ',
+        text  : 'Data Target Has Been ' + flashDataTargetUser,
+        icon  : 'success'
+    });
+}
+
+const flashDataAllTarget = $('.flash-data-all-target').data('flashdata');
+if (flashDataAllTarget) {
+    Swal.fire({
+        title : 'Data Target ',
+        text  : 'Data Target Has Been ' + flashDataAllTarget,
+        icon  : 'success'
+    });
+}
+
 const flashDataGagal = $('.flash-data-gagal').data('flashdata');
 if (flashDataGagal) {
     Swal.fire({
@@ -255,3 +273,40 @@ $('.tombol-hapus-satuan-kerja').on('click', function(e) {
         }
     })
   });
+
+$('.tombol-hapus-target-user').on('click', function(e) {
+    e.preventDefault();
+  
+    const href = $(this).attr('href')
+  
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Data Target Will Be Deleted",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.location.href = href;
+        }
+    })
+  });
+
+  function submitFormTarget(form){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Data Target Will Be Added",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+    return false;
+}

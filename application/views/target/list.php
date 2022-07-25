@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 my-2" onclick="location.href='<?= base_url('program/'); ?>';" style="cursor: pointer;">
+      <div class="col-12 my-2" onclick="location.href='<?= base_url('target/allEmployee'); ?>';" style="cursor: pointer;">
         <div class="card card-primary">
           <div class="card-body">
             <div class="form-group mb-0">
@@ -45,11 +45,9 @@
     </div>
 
     <div class="row" id="univ">
-      <?php foreach ($allUser as $u) : ?>
-        <?php $id = $u['id']; ?>
-        <div class="col-lg-3 col-md-6 grid-margin stretch-card" onclick="location.href='<?= base_url('target/userAdd/') . $id ?>';" style="cursor: pointer;">
+      <?php foreach ($employee as $u) : ?>
+        <div class="col-lg-3 col-md-6 grid-margin stretch-card" onclick="location.href='<?= base_url('target/addTargetUser/') . $u['id'] ?>';" style="cursor: pointer;">
           <div class="card mb-5 " style="height: 90%;">
-            <!-- <div class="card-wrap"> -->
             <div class="card-body p-3" style="height: 250px;">
               <center>
                 <table>
@@ -62,12 +60,12 @@
               </center>
             </div>
             <div class="card-body">
+              <?php $j = $this->db->get_where('user_jabatan', ['id' => $u['jabatan_id']])->row_array(); ?>
               <center>
                 <h6><?= $u['name']; ?></h6>
-                <h6><?= $u['jabatan_id']; ?></>
+                <h6>Jabatan: <?= $j['jabatan']; ?></>
               </center>
             </div>
-            <!-- </div> -->
           </div>
         </div>
       <?php endforeach; ?>
