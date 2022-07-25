@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2022 at 02:48 PM
+-- Generation Time: Jul 25, 2022 at 11:43 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -81,7 +81,33 @@ CREATE TABLE `data_target` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `detail_kegiatan` varchar(128) NOT NULL,
-  `dateline` varchar(128) NOT NULL
+  `start_date` varchar(128) NOT NULL,
+  `end_date` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_target`
+--
+
+INSERT INTO `data_target` (`id`, `user_id`, `detail_kegiatan`, `start_date`, `end_date`) VALUES
+(2, 3, 'asdasdasdasdasd', '2022-07-07', '2022-07-27'),
+(3, 4, 'dsadsadsa', '2022-07-01', '2022-07-28'),
+(4, 3, 'asdasd asdf', '2022-06-30', '2022-07-29'),
+(5, 4, 'asdasd asdf', '2022-06-30', '2022-07-29'),
+(6, 3, 'asdasd', '2022-07-02', '2022-07-23'),
+(7, 4, 'asdasd', '2022-07-02', '2022-07-23'),
+(8, 3, 'asdasdas', '2022-07-01', '2022-07-21'),
+(9, 4, 'asdasdas', '2022-07-01', '2022-07-21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `form`
+--
+
+CREATE TABLE `form` (
+  `id` int(11) NOT NULL,
+  `sum` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -104,7 +130,7 @@ CREATE TABLE `perusahaan` (
 --
 
 INSERT INTO `perusahaan` (`id`, `perusahaan`, `logo`, `alamat`, `tlp`, `owner_id`) VALUES
-(1, 'PT Siamang Tunggal', '2019-04-22-ts3_thumbs-4ab.png', 'Jl. Angin Ribut No. 9', '089504824037', 1);
+(1, 'PT Siamang Tunggal', 'fcb_logo_PNG22.png', 'Jl. Angin Ribut No. 9', '089504824037', 1);
 
 -- --------------------------------------------------------
 
@@ -338,6 +364,12 @@ ALTER TABLE `data_target`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `form`
+--
+ALTER TABLE `form`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `perusahaan`
 --
 ALTER TABLE `perusahaan`
@@ -399,7 +431,7 @@ ALTER TABLE `user_unit_kerja`
 -- AUTO_INCREMENT for table `data_kegiatan`
 --
 ALTER TABLE `data_kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `data_satuan_kerja`
@@ -411,6 +443,12 @@ ALTER TABLE `data_satuan_kerja`
 -- AUTO_INCREMENT for table `data_target`
 --
 ALTER TABLE `data_target`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `form`
+--
+ALTER TABLE `form`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
