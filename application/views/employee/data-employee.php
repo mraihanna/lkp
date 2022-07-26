@@ -10,7 +10,7 @@
             <?= validation_errors(); ?>
           </div>
         <?php endif; ?>
-        <div class="flash-data-employee" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+        <div class="flash-data-active-employee" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
       </div>
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -41,10 +41,9 @@
                       <td> <?= htmlentities($e['nip']); ?> </td>
                       <td> <?= htmlentities($e['name']); ?> </td>
                       <td> <?= htmlentities($e['jabatan']); ?> </td>
-                      <td> <?= htmlentities($e['is_active']) == 1 ? "<div class = 'badge badge-success'> Active </div>" : "<div class = 'badge badge-danger'> Not Active </div>"; ?> </td>
+                      <td> <a class="tombol-sure-active" href="<?= base_url('employee/deactive/') . $e['id']; ?>"> <?= htmlentities($e['is_active']) == 1 ? "<div class = 'badge badge-success tombol-sure-active'> Active </div>" : "<div class = 'badge badge-danger tombol-sure-active'> Not Active </div>"; ?> </a></td>
                       <td>
-                        <a href="<?= base_url('menu/editSubMenu/') . $e['id']; ?>" title="EDIT" class="badge badge-warning" data-toggle="modal" data-target="#editEmployeeModal<?= $e['id']; ?>"><i class="mdi mdi-tooltip-edit" title="EDIT"></i> </a>
-                        <a href="<?= base_url('menu/editSubMenu/') . $e['id']; ?>" title="DETAIL" class="badge badge-info" data-toggle="modal" data-target="#detailEmployeeModal<?= $e['id']; ?>"><i class="mdi mdi-information-outline" title="DETAIL"></i> </a>
+                        <a href="<?= base_url('employee/detailEmployee/') . $e['id']; ?>" title="DETAIL" class="badge badge-info"><i class="mdi mdi-information-outline" title="DETAIL"></i> </a>
                       </td>
                     </tr>
                   <?php endforeach; ?>
@@ -57,102 +56,3 @@
 
     </div>
   </div>
-  <!-- Modal Edit -->
-  <?php foreach ($employee as $e) : ?>
-    <div class="modal fade" id="editEmployeeModal<?= $e['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editEmployeeModalLabel">Edit Employee</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form action="<?= base_url('menu/editsubmenu/') . $e['id']; ?>" method="POST">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="title">Sub Menu Title</label>
-                <input type="text" name="title" class="form-control" id="title" placeholder="Sub Menu Title" value="<?= $e['title']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="menu_id">Menu Name</label>
-                <select name="menu_id" id="menu_id" class="form-control">
-                  <option value="<?= $e['menu_id']; ?>"><?= $e['menu']; ?></option>
-                  <?php foreach ($menu as $m) : ?>
-                    <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="URL">URL</label>
-                <input type="text" name="url" class="form-control" id="URL" placeholder="URL" value="<?= $e['url']; ?>">
-              </div>
-              <div class="form-group">
-                <div class="form-check mx-sm-2">
-                  <input type="hidden" value="0" name="is_active" id="is_active">
-                  <label class="form-check-label" for="is_active">
-                    <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" <?= $e['is_active'] == 1 ? "checked" : ""; ?>>
-                    Active?
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Edit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  <?php endforeach; ?>
-
-  <!-- Modal Detail -->
-  <?php foreach ($employee as $e) : ?>
-    <div class="modal fade" id="detailEmployeeModal<?= $e['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="detailEmployeeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="detailEmployeeModalLabel">Add New Sub Menu</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form action="<?= base_url('menu/editsubmenu/') . $e['id']; ?>" method="POST">
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="title">Sub Menu Title</label>
-                <input type="text" name="title" class="form-control" id="title" placeholder="Sub Menu Title" value="<?= $e['title']; ?>">
-              </div>
-              <div class="form-group">
-                <label for="menu_id">Menu Name</label>
-                <select name="menu_id" id="menu_id" class="form-control">
-                  <option value="<?= $e['menu_id']; ?>"><?= $e['menu']; ?></option>
-                  <?php foreach ($menu as $m) : ?>
-                    <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="URL">URL</label>
-                <input type="text" name="url" class="form-control" id="URL" placeholder="URL" value="<?= $e['url']; ?>">
-              </div>
-              <div class="form-group">
-                <div class="form-check mx-sm-2">
-                  <input type="hidden" value="0" name="is_active" id="is_active">
-                  <label class="form-check-label" for="is_active">
-                    <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" <?= $e['is_active'] == 1 ? "checked" : ""; ?>>
-                    Active?
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Edit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  <?php endforeach; ?>

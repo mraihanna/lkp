@@ -97,6 +97,10 @@ class Employee_model extends CI_Model
     ];
 
     $this->db->insert('user', $data);
+
+    // Insert user detail
+    $this->db->set('nip', $nip);
+    $this->db->insert('user_detail');
   }
 
   public function getEmployee()
@@ -109,5 +113,20 @@ class Employee_model extends CI_Model
         JOIN user_role
         ON user.role_id = user_role.id";
     return $this->db->query($query)->result_array();
+  }
+
+  public function getEmployeeById($id)
+  {
+    $query = "SELECT user.*, user_jabatan.jabatan, user_unit_kerja.unit_kerja, user_role.role, user_detail.alamat
+        FROM user JOIN user_jabatan
+        ON user.jabatan_id = user_jabatan.id
+        JOIN user_unit_kerja
+        ON user.unit_kerja_id = user_unit_kerja.id
+        JOIN user_role
+        ON user.role_id = user_role.id
+        JOIN user_detail
+        ON user.nip = user_detail.nip
+        WHERE user.id = $id";
+    return $this->db->query($query)->row_array();
   }
 }

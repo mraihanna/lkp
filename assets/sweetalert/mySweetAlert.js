@@ -136,6 +136,15 @@ if (flashDataError) {
     });
 }
 
+const flashDataActiveEmployee = $('.flash-data-active-employee').data('flashdata');
+if (flashDataActiveEmployee) {
+    Swal.fire({
+        title : 'Data Employee',
+        text  : "Active was " + flashDataActiveEmployee,
+        icon  : 'success'
+    });
+}
+
 // confirm
 $('.tombol-hapus-menu').on('click', function(e) {
   e.preventDefault();
@@ -287,6 +296,26 @@ $('.tombol-hapus-target-user').on('click', function(e) {
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.location.href = href;
+        }
+    })
+  });
+
+  $('.tombol-sure-active').on('click', function(e) {
+    e.preventDefault();
+  
+    const href = $(this).attr('href')
+  
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Data Employee Will Active or Deactive",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
     }).then((result) => {
         if (result.isConfirmed) {
             document.location.href = href;

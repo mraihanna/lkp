@@ -202,4 +202,36 @@ class Employee extends CI_Controller
       redirect('employee/unitKerja');
     }
   }
+
+  public function deactive($id)
+  {
+    $user = $this->db->get_where('user', ['id' => $id])->row_array();
+    if ($user['is_active'] == 1) {
+      $this->db->set('is_active', 0);
+      $this->db->where('id', $id);
+      $this->db->update('user');
+    } else {
+      $this->db->set('is_active', 1);
+      $this->db->where('id', $id);
+      $this->db->update('user');
+    }
+    $this->session->set_flashdata('message', 'Changed!');
+    redirect('employee/dataemployee');
+  }
+
+  public function detailEmployee($id)
+  {
+    $data['title']      = 'Data Employee';
+    $data['user']       = $this->db->get_where('user', ['nip' => $this->session->userdata('nip')])->row_array();
+    $data['jabatan']    = $this->db->get_where('user_role', ['id' => $data['user']['role_id']])->row_array();
+
+    $data['employee']   = $this->employee->getEmployeeById($id);
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/navbar', $data);
+    $this->load->view('templates/settings');
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('employee/detail-employee', $data);
+    $this->load->view('templates/footer');
+  }
 }
