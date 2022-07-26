@@ -6,7 +6,6 @@ class Report_model extends CI_Model
   public function insertDailyReport($id)
   {
     $user_id      = $id;
-    $kegiatan     = $this->input->post('kegiatan');
     $tanggal      = $this->input->post('tanggal');
     $jam_mulai    = $this->input->post('jam_mulai');
     $jam_selesai  = $this->input->post('jam_selesai');
@@ -15,12 +14,13 @@ class Report_model extends CI_Model
     $tempat       = $this->input->post('tempat');
     $keterangan   = $this->input->post('keterangan');
     $new_doc      = 0;
+    $target_id    = $this->input->post('target');
 
     $uploadDoc    = $_FILES['dok_pend']['name'];
 
     if ($uploadDoc) {
-      $config['allowed_types']  = 'pdf';
-      $config['max_size']       = '2048'; //2 mega
+      $config['allowed_types']  = 'jpg|png|jpeg|pdf';
+      $config['max_size']       = '2048';
       $config['upload_path']    = './assets/dokumen/';
 
       $this->load->library('upload', $config); //library confignya
@@ -36,20 +36,24 @@ class Report_model extends CI_Model
 
     $data = [
       'user_id'         => $user_id,
-      'nama_kegiatan'   => $kegiatan,
+      'verifikator_id'  => 0,
+      'satuan_kerja_id' => $satuan_kerja,
+      'target_id'       => $target_id,
       'tanggal_dimulai' => $tanggal,
       'jam_mulai'       => $jam_mulai,
       'jam_selesai'     => $jam_selesai,
       'jumlah_satuan'   => $jumlah,
-      'satuan_kerja_id' => $satuan_kerja,
       'tempat_kegiatan' => $tempat,
       'keterangan'      => $keterangan,
       'dok_pendukung'   => $new_doc,
-      'verifikator_id'  => 0,
       'is_verify'       => 0
     ];
 
-    return $this->db->insert('data_kegiatan', $data);
+    $this->db->insert('data_kegiatan', $data);
+
+    $this->db->set('is_finish', 1);
+    $this->db->where('id', $target_id);
+    return $this->db->update('data_target');
   }
 
   public function getEmployee($nip)

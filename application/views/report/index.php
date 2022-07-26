@@ -15,9 +15,23 @@
             </p>
             <?= form_open_multipart('report'); ?>
             <div class="form-group">
-              <label for="kegiatan">Kegiatan</label>
-              <input type="text" class="form-control" name="kegiatan" id="kegiatan" placeholder="Name Kegiatan">
-              <?= form_error('kegiatan', '<small class="text-danger">', '</small>'); ?>
+              <label>Kegiatan</label>
+              <select class="js-example-basic-single w-100" name="target">
+                <?php if (validation_errors()) : ?>
+                  <?php if (set_value('target') != NULL) : ?>
+                    <?php $targetId = $this->db->get_where('data_target', ['id' => set_value('target')])->row_array(); ?>
+                    <option value="<?= set_value('target'); ?>"><?= $targetId['detail_kegiatan']; ?> - Date Line: <?= date('d F Y', strtotime($targetId['end_date'])); ?></option>
+                  <?php else : ?>
+                    <option disabled hidden selected>Select Kegiatan</option>
+                  <?php endif; ?>
+                <?php else : ?>
+                  <option disabled hidden selected>Select Kegiatan</option>
+                <?php endif; ?>
+                <?php foreach ($target as $t) : ?>
+                  <option value="<?= $t['id']; ?>"><?= $t['detail_kegiatan']; ?> - Date Line: <?= date('d F Y', strtotime($t['end_date'])); ?></option>
+                <?php endforeach; ?>
+              </select>
+              <?= form_error('target', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
               <div class="row">
@@ -48,7 +62,16 @@
                 <div class="col-sm-8">
                   <label>Satuan Kerja</label>
                   <select class="js-example-basic-single w-100" name="satuan_kerja">
-                    <option disabled hidden selected>Select</option>
+                    <?php if (validation_errors()) : ?>
+                      <?php if (set_value('satuan_kerja') != NULL) : ?>
+                        <?php $satuanKerjaId = $this->db->get_where('data_satuan_kerja', ['id' => set_value('satuan_kerja')])->row_array(); ?>
+                        <option value="<?= set_value('satuan_kerja'); ?>"><?= $satuanKerjaId['satuan_kerja']; ?></option>
+                      <?php else : ?>
+                        <option disabled hidden selected>Select</option>
+                      <?php endif; ?>
+                    <?php else : ?>
+                      <option disabled hidden selected>Select</option>
+                    <?php endif; ?>
                     <?php foreach ($satuan as $s) : ?>
                       <option value="<?= $s['id']; ?>"><?= $s['satuan_kerja']; ?></option>
                     <?php endforeach; ?>
@@ -76,6 +99,7 @@
                   <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                 </span>
               </div>
+              <?= form_error('dok_pend', '<small class="text-danger">', '</small>'); ?>
             </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button class="btn btn-light">Cancel</button>

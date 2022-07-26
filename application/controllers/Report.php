@@ -18,16 +18,19 @@ class Report extends CI_Controller
     $data['role']     = $this->db->get('user_role')->result_array();
     $id               = $data['user']['id'];
 
+    $data['target']   = $this->db->get_where('data_target', ['user_id' => $data['user']['id']])->result_array();
+
     $data['satuan']   = $this->db->get('data_satuan_kerja')->result_array();
 
-    $this->form_validation->set_rules('kegiatan', 'Nama Kegiatan', 'required');
     $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
+    $this->form_validation->set_rules('target', 'Target', 'required');
     $this->form_validation->set_rules('jam_mulai', 'Jam Mulai', 'required');
     $this->form_validation->set_rules('jam_selesai', 'Jam Selesai', 'required');
     $this->form_validation->set_rules('jumlah', 'Jumlah Satuan', 'required');
     $this->form_validation->set_rules('satuan_kerja', 'Satuan Kerja', 'required');
     $this->form_validation->set_rules('tempat', 'Tempat Kegiatan', 'required');
     $this->form_validation->set_rules('keterangan', 'Keterangan', 'required');
+    $this->form_validation->set_rules('dok_pend', 'Dokumen Pendukung', 'required');
 
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/header', $data);

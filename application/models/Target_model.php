@@ -23,7 +23,7 @@ class Target_model extends CI_Model
   public function updateTargetUser($id)
   {
     $det    =  $this->input->post('detail_kegiatan');
-    $sDate  =  $this->input->post('start_date');
+    $sDate  =  ($this->input->post('start_date'));
     $eDate  =  $this->input->post('end_date');
 
     $data  = [

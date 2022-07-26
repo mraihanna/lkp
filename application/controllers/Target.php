@@ -115,4 +115,22 @@ class Target extends CI_Controller
       redirect('target/allEmployee/');
     }
   }
+
+  public function employee()
+  {
+    $data['title']    = 'Progress Employee';
+    $data['user']     = $this->db->get_where('user', ['nip' => $this->session->userdata('nip')])->row_array();
+    $data['unitKerja'] = $this->db->get_where('user_unit_kerja', ['id' => $data['user']['unit_kerja_id']])->row_array();
+
+    $data['role']     = $this->db->get('user_role')->result_array();
+    $data['jabatan']  = $this->db->get_where('user_role', ['id' => $this->session->userdata('role_id')])->row_array();
+
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates/navbar', $data);
+    $this->load->view('templates/settings');
+    $this->load->view('templates/sidebar', $data);
+    $this->load->view('target/employee', $data);
+    $this->load->view('templates/footer');
+  }
 }
