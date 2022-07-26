@@ -37,17 +37,17 @@
               <div class="row">
                 <div class="col-sm-4">
                   <label for="tanggal">Tanggal</label>
-                  <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?= date('Y-m-d'); ?>">
+                  <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?= date('Y-m-d', strtotime(set_value('tanggal'))); ?>">
                   <?= form_error('tanggal', '<small class="text-danger">', '</small>'); ?>
                 </div>
                 <div class="col-sm-4">
                   <label for="jam_mulai">Jam Mulai</label>
-                  <input type="time" class="form-control" name="jam_mulai" id="jam_mulai">
+                  <input type="time" class="form-control" name="jam_mulai" id="jam_mulai" value="<?= set_value('jam_mulai'); ?>">
                   <?= form_error('jam_mulai', '<small class="text-danger">', '</small>'); ?>
                 </div>
                 <div class="col-sm-4">
                   <label for="jam_selesai">Jam Selesai</label>
-                  <input type="time" class="form-control" name="jam_selesai" id="jam_selesai">
+                  <input type="time" class="form-control" name="jam_selesai" id="jam_selesai" value="<?= set_value('jam_selesai'); ?>">
                   <?= form_error('jam_selesai', '<small class="text-danger">', '</small>'); ?>
                 </div>
               </div>
@@ -56,7 +56,7 @@
               <div class="row">
                 <div class="col-sm-4">
                   <label for="jumlah">Jumlah Satuan</label>
-                  <input type="number" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah Satuan Kerja">
+                  <input type="number" class="form-control" name="jumlah" id="jumlah" placeholder="Jumlah Satuan Kerja" value="<?= set_value('jumlah'); ?>">
                   <?= form_error('jumlah', '<small class="text-danger">', '</small>'); ?>
                 </div>
                 <div class="col-sm-8">
@@ -82,12 +82,12 @@
             </div>
             <div class="form-group">
               <label for="tempat">Tempat Kegiatan</label>
-              <input type="text" class="form-control" name="tempat" id="tempat" placeholder="Tempat Kegiatan">
+              <input type="text" class="form-control" name="tempat" id="tempat" placeholder="Tempat Kegiatan" value="<?= set_value('tempat'); ?>">
               <?= form_error('tempat', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
               <label for="keterangan">Keterangan</label>
-              <textarea class="form-control" name="keterangan" id="keterangan" rows="4" placeholder="Penjelesan mengenai kegiatan"></textarea>
+              <textarea class="form-control" name="keterangan" id="keterangan" rows="4" placeholder="Penjelesan mengenai kegiatan"><?= set_value('keterangan'); ?></textarea>
               <?= form_error('keterangan', '<small class="text-danger">', '</small>'); ?>
             </div>
             <div class="form-group">
