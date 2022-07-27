@@ -18,6 +18,7 @@ class Report extends CI_Controller
     $data['role']     = $this->db->get('user_role')->result_array();
     $id               = $data['user']['id'];
 
+    $this->db->order_by('end_date', 'asc');
     $data['target']   = $this->db->get_where('data_target', ['user_id' => $data['user']['id']])->result_array();
 
     $data['satuan']   = $this->db->get('data_satuan_kerja')->result_array();
